@@ -1,0 +1,76 @@
+create database project;
+ use project;
+create table customers(
+customerID int primary key,
+FirstName varchar(50),
+LastName varchar(50),
+Email varchar(80),
+Gender varchar(10),
+AGE INT,
+City varchar(50),
+State varchar(50)
+);
+
+create table Transcations(
+TranscationID int primary key,
+CustomerID int,
+TranscationDate DATE,
+Amount Decimal(10,2),
+Product varchar(100),
+Category varchar(50)
+);
+
+
+INSERT INTO customers(customerID,FirstName, LastName, Email, Age, City,State)
+VALUES (1, 'Shubham', 'Thakur', 'shubham@example.com',23,'chicgo','IL'),
+       (2, 'Aman ', 'Chopra', 'aman@example.com',21,'houston ','TX'),
+       (3, 'Naveen', 'Tulasi', 'naveen@example.com',24,'miami ','FL'),
+       (4, 'Aditya', 'Arpan', 'aditya@example.com',21,'boston ','MA'),
+       (5, 'Nishant. Salchichas S.A.', 'Jain', 'nishant@example.com',22,'dallas','TX'),
+       (6, 'David', 'miller', ' David09@example.com',27,'chicgo','IL'),
+       (7, 'Daniel', 'jones', 'daniel68@example.com',22,'los angles','CA'),
+       (8, 'Naoh', 'lee', 'naoh67@example.com',24,'New York','NY'),
+       (9, 'Emma', 'watson', 'emmawatson@example.com',21,'denver','CO'),
+       (10, 'Emily', 'davis', 'emily78@example.com',22,'dallas','TX');
+       
+INSERT INTO Transcations(TranscationID,CustomerID,TranscationDate,Amount,Product,Category)
+values('11','3','2023-04-10','90.00','Tablets','medicine'),
+      ('12','4','2023-05-10','190.00','torchlight','Electronics'),
+      ('13','5','2023-06-10','80.00','ponds powder','Fashion'),
+      ('14','6','2023-07-10','500.00','t-shirt','Fashion'),
+      ('15','7','2023-08-10','70.00','tennis ball','sport'),
+      ('16','8','2023-09-10','100.00','sunglasses','Fashion'),
+      ('17','9','2023-10-10','900.00','pants','Fashion'),
+      ('18','10','2023-11-10','80.00','books','Education'),
+      ('19','11','2023-12-10','1000.00','u.s pole shoes','Fashion'),
+      ('20','12','2024-01-10','900.00','shirts','Fashion');
+      
+
+select  
+    case
+	    when Age = 23 then  'young'
+        when Age between 24 AND 40 THEN 'MIDDLE-AGED'
+        ELSE 'SENIOR'
+	END AS AGESEGMENT,
+    COUNT(*) AS CUSTOMERCOUNT
+FROM customers
+group by AGESEGMENT;
+
+select 
+    Age, 
+    Avg(Amount) as AverageTransationsAmount,
+    count(*) as TranscationsCount
+INTO OUTFILE"C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\CUSTOMER_PROFILING.csv"
+ from customers
+ JOIN Transcations on customers.CustomerID = Transcations.CustomerID
+ group by Age;
+ 
+truncate customers;
+ 
+SELECT * FROM CUSTOMERs;
+alter table CUSTOMERs 
+
+add cost int;
+
+select  MAX(Amount) as max_amount from  transcations 
+limit 3;
